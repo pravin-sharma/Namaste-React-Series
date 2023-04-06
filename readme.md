@@ -1,1 +1,1 @@
-Episode wise code backup for Namaste React Webseries
+Episode wise code in every branch for Namaste React Webseries
