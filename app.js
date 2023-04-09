@@ -1,21 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const parent = React.createElement(
-    "div",
-    {},
-    [React.createElement(
-      "h1",
-      { id: "welcome", style: { color: "pink" } },
-      "Hello World 1"
-    ),
-    React.createElement(
-      "h1",
-      { id: "welcome", style: { color: "pink" } },
-      "Hello World 2"
-    )]
+const ReactComponent = () => {
+  return (
+    <div className="">
+      <h1>This is react functional component</h1>
+    </div>
   );
-  
-  const root = ReactDOM.createRoot(document.getElementById("root"));
-  root.render(parent);
-  
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<ReactComponent />);
