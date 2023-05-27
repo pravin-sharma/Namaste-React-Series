@@ -1,5 +1,5 @@
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
 }
 
@@ -73,6 +73,26 @@ body {
 }
 .search .search-button:hover {
   background: #dd5800;
+}
+
+.filter-btn {
+  padding: 10px;
+  margin: 0 10px;
+  background: white;
+  border: 1px solid #cbcbcba8;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.filter-btn-clicked {
+  padding: 10px;
+  margin: 0 10px;
+  background: #d4d4d4;
+  border: 1px solid #cbcbcba8;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.filter-btn:hover {
+  background: #e7e7e7;
 }
 
 .restaurant-container {

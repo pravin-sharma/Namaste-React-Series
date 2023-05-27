@@ -1,12 +1,11 @@
 import SearchBar from "./SearchBar";
 import RestaurantCardsContainer from "./RestaurantCardsContainer";
 
-export default Body = () => (
-  <div className="body">
-    <SearchBar />
-    <div className="filter">
-      <button className="filter-btn">Top Rated Restaurants</button>
+export default Body = () => {
+  return (
+    <div className="body">
+      <SearchBar />
+      <RestaurantCardsContainer />
     </div>
-    <RestaurantCardsContainer />
-  </div>
-);
+  );
+};
