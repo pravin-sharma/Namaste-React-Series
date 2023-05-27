@@ -5,6 +5,7 @@ import RestaurantCard from './RestaurantCard';
 export default RestaurantCardsContainer = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [showTopRes, setShowTopRes] = useState(false);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   useEffect(() => {
     setRestaurants(allRestaurantData);
   }, []);
@@ -12,10 +13,10 @@ export default RestaurantCardsContainer = () => {
   const topRatedRes = () => {
     if (!showTopRes) {
       const topRatedRestaurants = restaurants.filter((res) => res.rating >= 4);
-      setRestaurants(topRatedRestaurants);
+      setFilteredRestaurants(topRatedRestaurants);
       setShowTopRes(true);
     } else {
-      setRestaurants(allRestaurantData);
+      setFilteredRestaurants([]);
       setShowTopRes(false);
     }
   };
@@ -31,14 +32,23 @@ export default RestaurantCardsContainer = () => {
         </button>
       </div>
       <div className="restaurant-container">
-        {restaurants.map((restaurantData) => {
-          return (
-            <RestaurantCard
-              key={restaurantData.id}
-              restaurantData={restaurantData}
-            />
-          );
-        })}
+        {filteredRestaurants.length > 0
+          ? filteredRestaurants.map((restaurantData) => {
+              return (
+                <RestaurantCard
+                  key={restaurantData.id}
+                  restaurantData={restaurantData}
+                />
+              );
+            })
+          : restaurants.map((restaurantData) => {
+              return (
+                <RestaurantCard
+                  key={restaurantData.id}
+                  restaurantData={restaurantData}
+                />
+              );
+            })}
       </div>
     </Fragment>
   );
