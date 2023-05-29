@@ -1,18 +1,41 @@
 import { Fragment, useEffect, useState } from 'react';
-import allRestaurantData from '../utils/mockData';
 import RestaurantCard from './RestaurantCard';
+import ShimmerCard from './RestaurantCardShimmer';
+import { RES_API_URL } from '../utils/constants';
 
-export default RestaurantCardsContainer = () => {
+export default RestaurantCardsContainer = (props) => {
+  const { searchText } = props;
   const [restaurants, setRestaurants] = useState([]);
   const [showTopRes, setShowTopRes] = useState(false);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   useEffect(() => {
-    setRestaurants(allRestaurantData);
+    (async () => {
+      const apiResponse = await fetch(RES_API_URL);
+      const parsedResponse = await apiResponse.json();
+      const resData =
+        parsedResponse?.data?.cards[2]?.data?.data?.cards ||
+        parsedResponse?.data?.cards[0]?.data?.data?.cards ||
+        [];
+      setRestaurants(resData);
+    })();
   }, []);
+
+  useEffect(() => {
+    if (!searchText) {
+      setFilteredRestaurants([]);
+    } else {
+      const filteredRestaurants = restaurants.filter((res) =>
+        res.data.name?.toLowerCase().includes(searchText?.toLowerCase())
+      );
+      setFilteredRestaurants(filteredRestaurants);
+    }
+  }, [searchText]);
 
   const topRatedRes = () => {
     if (!showTopRes) {
-      const topRatedRestaurants = restaurants.filter((res) => res.rating >= 4);
+      const topRatedRestaurants = restaurants.filter(
+        (res) => parseInt(res.data.avgRating) >= 4
+      );
       setFilteredRestaurants(topRatedRestaurants);
       setShowTopRes(true);
     } else {
@@ -21,7 +44,15 @@ export default RestaurantCardsContainer = () => {
     }
   };
 
-  return (
+  const renderResCards = (resData) => {
+    return resData.map((res) => {
+      return <RestaurantCard key={res.data.id} restaurantData={res.data} />;
+    });
+  };
+
+  return restaurants.length === 0 ? (
+    <ShimmerCard />
+  ) : (
     <Fragment>
       <div className="filter">
         <button
@@ -31,24 +62,18 @@ export default RestaurantCardsContainer = () => {
           Top Rated Restaurants
         </button>
       </div>
+      {/* IF no filter results found */}
+      {filteredRestaurants.length == 0 &&
+        (showTopRes || Boolean(searchText.length)) && (
+          <div className="">
+            <h1 style={{ margin: '1rem' }}>No Results</h1>
+          </div>
+        )}
       <div className="restaurant-container">
-        {filteredRestaurants.length > 0
-          ? filteredRestaurants.map((restaurantData) => {
-              return (
-                <RestaurantCard
-                  key={restaurantData.id}
-                  restaurantData={restaurantData}
-                />
-              );
-            })
-          : restaurants.map((restaurantData) => {
-              return (
-                <RestaurantCard
-                  key={restaurantData.id}
-                  restaurantData={restaurantData}
-                />
-              );
-            })}
+        {/* Initial Render */}
+        {filteredRestaurants.length == 0
+          ? renderResCards(restaurants)
+          : renderResCards(filteredRestaurants)}
       </div>
     </Fragment>
   );

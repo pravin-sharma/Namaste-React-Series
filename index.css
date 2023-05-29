@@ -129,3 +129,21 @@ body {
   margin: 15px 10px;
   font-weight: bold;
 }
+
+.restaurant-container-shimmer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.restaurant-card-shimmer {
+  border: 1px solid #e7e7e7;
+  background-color: #ffedd4;
+  border-radius: 1.5rem;
+  margin: 1rem 0.5rem;
+  width: 20rem;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
