@@ -1,4 +1,5 @@
-import { LOGO } from "../utils/constants";
+import { Link } from 'react-router-dom';
+import { LOGO } from '../utils/constants';
 
 export default Header = () => (
   <div className="header">
@@ -8,8 +9,12 @@ export default Header = () => (
     </div>
     <div className="nav-list">
       <ul>
-        <li>Home</li>
-        <li>About</li>
+        <li>
+          <Link to={'/'}>Home</Link>
+        </li>
+        <li>
+          <Link to={'/about'}>About</Link>
+        </li>
         <li>
           <img
             className="cart-icon"

@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import RestaurantCard from './RestaurantCard';
 import ShimmerCard from './RestaurantCardShimmer';
 import { RES_API_URL } from '../utils/constants';
+import { Link } from 'react-router-dom';
 
 export default RestaurantCardsContainer = (props) => {
   const { searchText } = props;
@@ -46,7 +47,11 @@ export default RestaurantCardsContainer = (props) => {
 
   const renderResCards = (resData) => {
     return resData.map((res) => {
-      return <RestaurantCard key={res.data.id} restaurantData={res.data} />;
+      return (
+        <Link to={`/restaurant/${res.data.id}`}>
+          <RestaurantCard key={res.data.id} restaurantData={res.data} />
+        </Link>
+      );
     });
   };
 
