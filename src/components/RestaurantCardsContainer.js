@@ -48,8 +48,8 @@ export default RestaurantCardsContainer = (props) => {
   const renderResCards = (resData) => {
     return resData.map((res) => {
       return (
-        <Link to={`/restaurant/${res.data.id}`}>
-          <RestaurantCard key={res.data.id} restaurantData={res.data} />
+        <Link to={`/restaurant/${res.data.id}`} key={res.data.id}>
+          <RestaurantCard restaurantData={res.data} />
         </Link>
       );
     });
