@@ -1,46 +1,11 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useResData from '../utils/useResData';
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const [resData, setResData] = useState(null);
-  useEffect(() => {
-    fetchResData(resId);
-  }, []);
 
-  const fetchResData = async (resId) => {
-    const data = await fetch(
-      'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0759837&lng=72.8776559&restaurantId=' +
-        resId
-    );
-    const jsonData = await data.json();
+  const resData = useResData(resId);
 
-    const fullMenu =
-      jsonData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-    const formattedMenu = [];
-    fullMenu.forEach((i) => {
-      const itemCards = i?.card?.card?.itemCards;
-      const title = i?.card?.card?.title;
-      if (itemCards?.length) {
-        const formattedItemCards = [];
-        itemCards.forEach((i) => {
-          formattedItemCards.push(i?.card?.info);
-        });
-
-        formattedMenu.push({
-          title,
-          menu: formattedItemCards,
-        });
-      }
-    });
-    const resDetails = jsonData?.data?.cards[0]?.card?.card?.info;
-    const response = {
-      resDetails,
-      menu: formattedMenu,
-    };
-    console.log(response);
-    setResData(response);
-  };
   return (
     <div className="">
       {resData ? <h1>{resData?.resDetails?.name}</h1> : 'No Restaurant Found'}
