@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from './components/Header';
 import Body from './components/Body';
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import About from './components/About';
 import ErrorComponent from './components/ErrorComponent';
 import RestaurantMenu from './components/RestaurantMenu';
+const About = lazy(() => import('./components/About'));
 
 const App = () => {
   return (
@@ -27,7 +27,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/about',
-        element: <About />,
+        element: (
+          <Suspense>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: '/restaurant/:resId',
