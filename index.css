@@ -159,10 +159,8 @@ body {
 }
 
 .user-card-container {
-  height: 50vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   max-width: max-content;
 }
 
