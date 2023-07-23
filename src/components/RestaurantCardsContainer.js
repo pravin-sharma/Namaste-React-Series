@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard, { withPromotedLabel } from './RestaurantCard';
 import ShimmerCard from './RestaurantCardShimmer';
 import { RES_API_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ export default RestaurantCardsContainer = (props) => {
   const [restaurants, setRestaurants] = useState([]);
   const [showTopRes, setShowTopRes] = useState(false);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const RestaurantCardWithPromotedLabel = withPromotedLabel(RestaurantCard);
   useEffect(() => {
     (async () => {
       const apiResponse = await fetch(RES_API_URL);
@@ -49,7 +50,11 @@ export default RestaurantCardsContainer = (props) => {
     return resData.map((res) => {
       return (
         <Link to={`/restaurant/${res.data.id}`} key={res.data.id}>
-          <RestaurantCard restaurantData={res.data} />
+          {res?.data?.promoted ? (
+            <RestaurantCardWithPromotedLabel restaurantData={res.data} />
+          ) : (
+            <RestaurantCard restaurantData={res.data} />
+          )}
         </Link>
       );
     });
