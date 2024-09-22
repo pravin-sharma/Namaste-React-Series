@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import RestaurantCard from './RestaurantCard';
 import ShimmerCard from './RestaurantCardShimmer';
-import { RES_API_URL } from '../utils/constants';
+import { ALL_RES_API_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
 
 export default RestaurantCardsContainer = (props) => {
@@ -12,7 +12,7 @@ export default RestaurantCardsContainer = (props) => {
 
   useEffect(function fetchResEffect() {
     (async () => {
-      const apiResponse = await fetch(RES_API_URL);
+      const apiResponse = await fetch(ALL_RES_API_URL);
       const parsedResponse = await apiResponse.json();
       const resData = parsedResponse?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
       setRestaurants(resData);

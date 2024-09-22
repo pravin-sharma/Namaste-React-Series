@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { RES_MENU_API_URL } from '../utils/constants';
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -10,13 +11,12 @@ const RestaurantMenu = () => {
 
   const fetchResData = async (resId) => {
     const data = await fetch(
-      'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0759837&lng=72.8776559&restaurantId=' +
-        resId
+      RES_MENU_API_URL + resId
     );
     const jsonData = await data.json();
 
     const fullMenu =
-      jsonData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+      jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
     const formattedMenu = [];
     fullMenu.forEach((i) => {
       const itemCards = i?.card?.card?.itemCards;
@@ -41,6 +41,7 @@ const RestaurantMenu = () => {
     console.log(response);
     setResData(response);
   };
+
   return (
     <div className="">
       {resData ? <h1>{resData?.resDetails?.name}</h1> : 'No Restaurant Found'}
@@ -52,7 +53,7 @@ const RestaurantMenu = () => {
                 <ul>
                   {i?.menu?.map((j) => (
                     <li key={j.id}>
-                      {j.name} - Rs. {j.price / 100}
+                      {j.name} - Rs. {(j.price || j.defaultPrice) / 100}
                     </li>
                   ))}
                 </ul>
