@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import RestaurantCard from './RestaurantCard';
 import ShimmerCard from './RestaurantCardShimmer';
-import { RES_API_URL } from '../utils/constants';
+import { ALL_RES_API_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
 
 export default RestaurantCardsContainer = (props) => {
@@ -9,24 +9,22 @@ export default RestaurantCardsContainer = (props) => {
   const [restaurants, setRestaurants] = useState([]);
   const [showTopRes, setShowTopRes] = useState(false);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  useEffect(() => {
+
+  useEffect(function fetchResEffect() {
     (async () => {
-      const apiResponse = await fetch(RES_API_URL);
+      const apiResponse = await fetch(ALL_RES_API_URL);
       const parsedResponse = await apiResponse.json();
-      const resData =
-        parsedResponse?.data?.cards[2]?.data?.data?.cards ||
-        parsedResponse?.data?.cards[0]?.data?.data?.cards ||
-        [];
+      const resData = parsedResponse?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
       setRestaurants(resData);
     })();
   }, []);
 
-  useEffect(() => {
+  useEffect(function searchEffect() {
     if (!searchText) {
       setFilteredRestaurants([]);
     } else {
       const filteredRestaurants = restaurants.filter((res) =>
-        res.data.name?.toLowerCase().includes(searchText?.toLowerCase())
+        res?.info?.name?.toLowerCase().includes(searchText?.toLowerCase())
       );
       setFilteredRestaurants(filteredRestaurants);
     }
@@ -35,7 +33,7 @@ export default RestaurantCardsContainer = (props) => {
   const topRatedRes = () => {
     if (!showTopRes) {
       const topRatedRestaurants = restaurants.filter(
-        (res) => parseInt(res.data.avgRating) >= 4
+        (res) => res?.info?.avgRating >= 4.5
       );
       setFilteredRestaurants(topRatedRestaurants);
       setShowTopRes(true);
@@ -48,8 +46,8 @@ export default RestaurantCardsContainer = (props) => {
   const renderResCards = (resData) => {
     return resData.map((res) => {
       return (
-        <Link to={`/restaurant/${res.data.id}`} key={res.data.id}>
-          <RestaurantCard restaurantData={res.data} />
+        <Link to={`/restaurant/${res?.info?.id}`} key={res?.info?.id}>
+          <RestaurantCard restaurantData={res?.info} />
         </Link>
       );
     });

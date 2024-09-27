@@ -17,7 +17,7 @@ const RestaurantMenu = () => {
                 <ul>
                   {i?.menu?.map((j) => (
                     <li key={j.id}>
-                      {j.name} - Rs. {j.price / 100}
+                      {j.name} - Rs. {(j.price || j.defaultPrice) / 100}
                     </li>
                   ))}
                 </ul>
