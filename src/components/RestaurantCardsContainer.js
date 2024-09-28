@@ -57,9 +57,9 @@ export default RestaurantCardsContainer = (props) => {
     <ShimmerCard />
   ) : (
     <Fragment>
-      <div className="filter">
+      <div className="flex justify-center">
         <button
-          className={showTopRes ? 'p-2.5 mx-2.5 bg-gray-300 border border-gray-400 rounded-lg cursor-pointer' : "p-2.5 mx-2.5 bg-white border border-gray-400 rounded-lg cursor-pointer hover:bg-gray-200"}
+          className={showTopRes ? "p-2.5 mx-2.5 bg-gray-300 border border-gray-300 rounded-lg cursor-pointer" : "p-2.5 mx-2.5 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-200"}
           onClick={topRatedRes}
         >
           Top Rated Restaurants
