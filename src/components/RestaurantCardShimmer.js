@@ -6,7 +6,7 @@ const ShimmerCard = () => {
     while (numberOfShimmerCards > 0) {
       cards.push(
         <div
-          className="restaurant-card-shimmer"
+          className="border border-gray-300 bg-orange-200 rounded-xl m-4 w-80 h-96 flex flex-col p-4"
           key={numberOfShimmerCards}
         ></div>
       );
@@ -15,7 +15,7 @@ const ShimmerCard = () => {
     return cards;
   };
   const shimmerCards = generateShimmerCards(NUMBER_OF_SHIMMER_CARDS);
-  return <div className="restaurant-container-shimmer">{shimmerCards}</div>;
+  return <div className="flex flex-wrap justify-start">{shimmerCards}</div>;
 };
 
 export default ShimmerCard;

@@ -6,27 +6,27 @@ export default Header = () => {
   const onlineStatus = useOnlineStatus();
 
   return (
-    <div className="header">
-      <div className="logo-container">
-        <img className="logo" src={LOGO} alt="app logo" />
-        <h1 className="logo-title">Mealify</h1>
+    <div className="flex flex-wrap justify-between items-center px-5 py-0 m-0 border border-gray-400 rounded-lg">
+      <div className="flex items-center">
+        <img className="w-12" src={LOGO} alt="app logo" />
+        <h1 className="text-orange-500">Mealify</h1>
       </div>
-      <div className="nav-list">
+      <div className="flex list-none">
         <ul>
-          <li>
-            <Link to={'/'}>Home</Link>
+          <li className="m-2.5 p-2.5 text-lg">
+            <Link className="text-black no-underline" to={'/'}>Home</Link>
           </li>
-          <li>
-            <Link to={'/about'}>About</Link>
+          <li className="m-2.5 p-2.5 text-lg">
+            <Link className="text-black no-underline" to={'/about'}>About</Link>
           </li>
-          <li>
+          <li className="m-2.5 p-2.5 text-lg">
             <img
-              className="cart-icon"
+              className="w-6"
               src="https://cdn-icons-png.flaticon.com/512/3916/3916598.png"
               alt="cart icon"
             />
           </li>
-          <li>( Status {onlineStatus ? '🟢' : '🔴'} )</li>
+          <li className="m-2.5 p-2.5 text-lg">( Status {onlineStatus ? '🟢' : '🔴'} )</li>
         </ul>
       </div>
     </div>

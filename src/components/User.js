@@ -1,6 +1,6 @@
 const User = ({ name, role, hobby }) => {
   return (
-    <div className="user-card">
+    <div className="p-4 m-2 border border-black rounded-xl">
       <p>Name: {name}</p>
       <p>Role: {role}</p>
       <p>Hobby: {hobby}</p>

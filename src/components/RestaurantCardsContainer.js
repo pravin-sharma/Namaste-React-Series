@@ -59,7 +59,7 @@ export default RestaurantCardsContainer = (props) => {
     <Fragment>
       <div className="filter">
         <button
-          className={showTopRes ? 'filter-btn-clicked' : 'filter-btn'}
+          className={showTopRes ? 'p-2.5 mx-2.5 bg-gray-300 border border-gray-400 rounded-lg cursor-pointer' : "p-2.5 mx-2.5 bg-white border border-gray-400 rounded-lg cursor-pointer hover:bg-gray-200"}
           onClick={topRatedRes}
         >
           Top Rated Restaurants
@@ -68,11 +68,11 @@ export default RestaurantCardsContainer = (props) => {
       {/* IF no filter results found */}
       {filteredRestaurants.length == 0 &&
         (showTopRes || Boolean(searchText.length)) && (
-          <div className="">
+          <div className="flex flex-wrap justify-start">
             <h1 style={{ margin: '1rem' }}>No Results</h1>
           </div>
         )}
-      <div className="restaurant-container">
+      <div className="flex flex-wrap justify-start">
         {/* Initial Render */}
         {filteredRestaurants.length == 0
           ? renderResCards(restaurants)

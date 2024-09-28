@@ -5,13 +5,13 @@ export default RestaurantCard = ({ restaurantData }) => {
     restaurantData;
 
   return (
-    <div className="restaurant-card">
+    <div className="border border-gray-300 rounded-xl m-4 w-80 flex flex-col p-4 hover:border-orange-400 hover:shadow-md cursor-pointer">
       <img
         src={`${CLOUDINARY_RES_CARD_IMAGE_URL}/${cloudinaryImageId}`}
         alt="image"
-        className="image"
+        className="w-full h-full rounded-xl object-cover"
       />
-      <p className="name">{name}</p>
+      <p className="text-lg font-bold m-4">{name}</p>
       <p className="type">Type: {veg ? 'Veg' : 'Veg & Non-Veg'}</p>
       <p className="cuisine">Cuisine: {cuisines?.join(', ')}</p>
       <p className="rating">Stars: {avgRating}</p>
