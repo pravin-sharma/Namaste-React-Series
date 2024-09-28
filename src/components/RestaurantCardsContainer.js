@@ -9,26 +9,32 @@ export default RestaurantCardsContainer = (props) => {
   const [restaurants, setRestaurants] = useState([]);
   const [showTopRes, setShowTopRes] = useState(false);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   useEffect(function fetchResEffect() {
     (async () => {
       const apiResponse = await fetch(ALL_RES_API_URL);
       const parsedResponse = await apiResponse.json();
-      const resData = parsedResponse?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+      const resData =
+        parsedResponse?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || [];
       setRestaurants(resData);
     })();
   }, []);
 
-  useEffect(function searchEffect() {
-    if (!searchText) {
-      setFilteredRestaurants([]);
-    } else {
-      const filteredRestaurants = restaurants.filter((res) =>
-        res?.info?.name?.toLowerCase().includes(searchText?.toLowerCase())
-      );
-      setFilteredRestaurants(filteredRestaurants);
-    }
-  }, [searchText]);
+  useEffect(
+    function searchEffect() {
+      if (!searchText) {
+        setFilteredRestaurants([]);
+      } else {
+        const filteredRestaurants = restaurants.filter((res) =>
+          res?.info?.name?.toLowerCase().includes(searchText?.toLowerCase())
+        );
+        setFilteredRestaurants(filteredRestaurants);
+      }
+    },
+    [searchText]
+  );
 
   const topRatedRes = () => {
     if (!showTopRes) {
@@ -47,7 +53,11 @@ export default RestaurantCardsContainer = (props) => {
     return resData.map((res) => {
       return (
         <Link to={`/restaurant/${res?.info?.id}`} key={res?.info?.id}>
-          <RestaurantCard restaurantData={res?.info} />
+          {res?.info?.promoted ? (
+            <RestaurantCardPromoted restaurantData={res?.info}/>
+          ) : (
+            <RestaurantCard restaurantData={res?.info} />
+          )}
         </Link>
       );
     });
@@ -59,7 +69,11 @@ export default RestaurantCardsContainer = (props) => {
     <Fragment>
       <div className="flex justify-center">
         <button
-          className={showTopRes ? "p-2.5 mx-2.5 bg-gray-300 border border-gray-300 rounded-lg cursor-pointer" : "p-2.5 mx-2.5 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-200"}
+          className={
+            showTopRes
+              ? 'p-2.5 mx-2.5 bg-gray-300 border border-gray-300 rounded-lg cursor-pointer'
+              : 'p-2.5 mx-2.5 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-200'
+          }
           onClick={topRatedRes}
         >
           Top Rated Restaurants
