@@ -32,7 +32,12 @@ const useResData = (resId) => {
         });
       }
     });
-    const resDetails = jsonData?.data?.cards[0]?.card?.card?.info;
+    const resDetails = {
+      name: jsonData?.data?.cards[0]?.card?.card?.text,
+      rating: jsonData?.data?.cards[2]?.card?.card?.info?.avgRatingString,
+      ratedBy: jsonData?.data?.cards[2]?.card?.card?.info?.totalRatingsString,
+      costForTwoMessage: jsonData?.data?.cards[2]?.card?.card?.info?.costForTwoMessage
+    }
     const response = {
       resDetails,
       menu: formattedMenu,

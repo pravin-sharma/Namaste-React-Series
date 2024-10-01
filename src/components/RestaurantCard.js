@@ -1,11 +1,11 @@
 import { CLOUDINARY_RES_CARD_IMAGE_URL } from '../utils/constants';
 
 export default RestaurantCard = ({ restaurantData }) => {
-  const { name, cloudinaryImageId, veg, cuisines, avgRating, slaString } =
+  const { name, cloudinaryImageId, veg, cuisines, avgRating, sla:{slaString} } =
     restaurantData;
 
   return (
-    <div className="border border-gray-300 rounded-xl m-4 w-80 flex flex-col p-4 hover:border-orange-400 hover:shadow-md cursor-pointer">
+    <div className="border border-gray-300 h-[28rem] rounded-xl m-4 w-80 flex flex-col p-4 hover:border-orange-400 hover:shadow-md cursor-pointer">
       <img
         src={`${CLOUDINARY_RES_CARD_IMAGE_URL}/${cloudinaryImageId}`}
         alt="image"

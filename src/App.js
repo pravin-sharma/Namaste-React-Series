@@ -9,10 +9,10 @@ const About = lazy(() => import('./components/About'));
 
 const App = () => {
   return (
-    <div className="app">
+    <>
       <Header />
       <Outlet />
-    </div>
+    </>
   );
 };
 
