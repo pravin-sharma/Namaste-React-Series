@@ -1,8 +1,14 @@
 import { CLOUDINARY_RES_CARD_IMAGE_URL } from '../utils/constants';
 
 export default RestaurantCard = ({ restaurantData }) => {
-  const { name, cloudinaryImageId, veg, cuisines, avgRating, sla:{slaString} } =
-    restaurantData;
+  const {
+    name,
+    cloudinaryImageId,
+    veg,
+    cuisines,
+    avgRating,
+    sla: { slaString },
+  } = restaurantData;
 
   return (
     <div className="border border-gray-300 h-[28rem] rounded-xl m-4 w-80 flex flex-col p-4 hover:border-orange-400 hover:shadow-md cursor-pointer">
@@ -20,11 +26,14 @@ export default RestaurantCard = ({ restaurantData }) => {
   );
 };
 
+// withPromotedLabel is a HOC - Higher Order Component
 export const withPromotedLabel = (RestaurantCard) => {
   return (props) => {
     return (
       <div style={{ position: 'relative' }}>
-        <label className="absolute bg-black text-white p-2 rounded-md top-2.5 left-5">Promoted</label>
+        <label className="absolute bg-black text-white p-2 rounded-md top-2.5 left-5">
+          Promoted
+        </label>
         <RestaurantCard {...props} />
       </div>
     );
