@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import useResData from '../utils/useResData';
-import { useState } from 'react';
+// import { useState } from 'react';
+import RestaurantMenuCategory from './RestaurantMenuCategory';
 
 const RestaurantMenu = () => {
-  const [showCategoryItems, setShowCategoryItems] = useState(false);
   const { resId } = useParams();
   const resData = useResData(resId);
 
@@ -23,39 +23,10 @@ const RestaurantMenu = () => {
           <div className="font-bold text-xl">{costForTwoMessage}</div>
         </div>
       </div>
-      {resData.menu.map((category, index) => {
-        return (
-          <>
-            {/* Menu */}
-            <div className="w-4/12 mx-auto border-b-[16px] my-6 cursor-pointer" onClick={()=>setShowCategoryItems(!showCategoryItems)}>
-              <div className="flex justify-between">
-                <div className="flex">
-                  <h3 className="font-bold text-2xl">{category.title}</h3>
-                  <h3 className="font-bold text-2xl">
-                    {' '}
-                    ({category.menu.length})
-                  </h3>
-                </div>
-                <div>
-                  <img
-                    src="https://www.iconpacks.net/icons/2/free-arrow-down-icon-3101-thumb.png"
-                    alt="show"
-                    className="w-6"
-                  />
-                </div>
-              </div>
-
-              {showCategoryItems && <ul>
-                {category?.menu?.map((item) => (
-                  <li key={item.id}>
-                    {item.name} - Rs. {(item.price || item.defaultPrice) / 100}
-                  </li>
-                ))}
-              </ul>}
-            </div>
-          </>
-        );
-      })}
+      {/* Restaurant Menu Category */}
+      {resData.menu.map((category, index) => (
+        <RestaurantMenuCategory category={category} key={index} />
+      ))}
     </>
   );
 };
