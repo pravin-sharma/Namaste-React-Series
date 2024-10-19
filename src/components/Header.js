@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { LOGO } from '../utils/constants';
 import useOnlineStatus from '../utils/useOnlineStatus';
+import { useContext } from 'react';
+import userContext from '../context/userContext';
 
 export default Header = () => {
   const onlineStatus = useOnlineStatus();
+  const UserContext = useContext(userContext);
 
   return (
     <div className="flex flex-wrap justify-between items-center px-5 py-4 m-3 border border-gray-400 rounded-lg">
@@ -36,6 +39,7 @@ export default Header = () => {
           <li className="m-2.5 p-2.5 text-xl">
             ( Status {onlineStatus ? '🟢' : '🔴'} )
           </li>
+          <li className="m-2.5 p-2.5 text-xl">{UserContext?.name || 'USER'}</li>
         </ul>
       </div>
     </div>
