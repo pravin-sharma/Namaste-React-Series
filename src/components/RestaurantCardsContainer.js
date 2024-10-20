@@ -1,8 +1,9 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import RestaurantCard, { withPromotedLabel } from './RestaurantCard';
 import ShimmerCard from './RestaurantCardShimmer';
 import { ALL_RES_API_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
+import UserContext from '../context/userContext';
 
 export default RestaurantCardsContainer = (props) => {
   const { searchText } = props;
@@ -10,6 +11,7 @@ export default RestaurantCardsContainer = (props) => {
   const [showTopRes, setShowTopRes] = useState(false);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+  const { userName, setUserInfo } = useContext(UserContext);
 
   useEffect(function fetchResEffect() {
     (async () => {
@@ -54,7 +56,7 @@ export default RestaurantCardsContainer = (props) => {
       return (
         <Link to={`/restaurant/${res?.info?.id}`} key={res?.info?.id}>
           {res?.info?.promoted ? (
-            <RestaurantCardPromoted restaurantData={res?.info}/>
+            <RestaurantCardPromoted restaurantData={res?.info} />
           ) : (
             <RestaurantCard restaurantData={res?.info} />
           )}
@@ -78,6 +80,13 @@ export default RestaurantCardsContainer = (props) => {
         >
           Top Rated Restaurants
         </button>
+        <input
+          className="border rounded-lg p-2"
+          type="text"
+          placeholder="change username"
+          value={userName}
+          onChange={(e) => setUserInfo({ userName: e.target.value })}
+        />
       </div>
       {/* IF no filter results found */}
       {filteredRestaurants.length == 0 &&

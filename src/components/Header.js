@@ -39,7 +39,9 @@ export default Header = () => {
           <li className="m-2.5 p-2.5 text-xl">
             ( Status {onlineStatus ? '🟢' : '🔴'} )
           </li>
-          <li className="m-2.5 p-2.5 text-xl">{UserContext?.name || 'USER'}</li>
+          <li className="m-2.5 p-2.5 text-xl">
+            {UserContext?.userName || 'USER'}
+          </li>
         </ul>
       </div>
     </div>
