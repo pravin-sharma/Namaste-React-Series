@@ -6,19 +6,15 @@ import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ErrorComponent from './components/ErrorComponent';
 import RestaurantMenu from './components/RestaurantMenu';
 const About = lazy(() => import('./components/About'));
-import UserContext from './context/userContext';
+import UserState from './context/UserState';
 
 const App = () => {
-  const [userInfo, setUserInfo] = useState({ userName: 'default user' });
-
   return (
     <>
-      <UserContext.Provider
-        value={{ userName: userInfo.userName, setUserInfo }}
-      >
+      <UserState>
         <Header />
         <Outlet />
-      </UserContext.Provider>
+      </UserState>
     </>
   );
 };
